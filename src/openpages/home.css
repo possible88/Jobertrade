@@ -1,0 +1,11 @@
+.carousel  .thumbs {
+    text-align: center;
+}
+
+.carousel .thumb.selected, .carousel .thumb:hover {
+    border: none;
+  }
+
+  .carousel .carousel-status {
+    display: none;
+  }
