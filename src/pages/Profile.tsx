@@ -17,21 +17,24 @@ import EditProfile from '../components/EditProfile';
 const Profile = () => {
 
     const [user, setUser] = useState(new User());
-    const { user_name } = useParams();
+    const { id } = useParams();
     const [userlogins, setUserlogins] = useState(new User());
 
-    const posted_to = user_name;
+    const posted_to = id;
+
+    console.log(posted_to + 'go');
+    console.log(id + 'go2');
    
     useEffect(  () => {
         (
             async () => {
-                const {data} = await axios.get('user');
+                const {data} = await axios.get('client/user');
                 setUserlogins(new User(
                     data.id,
                     data.first_name,
                     data.last_name,
                     data.email,
-                    data.user_name,
+                    data.username,
                     data.country,
                     data.profile_pic,
                     data.phone,
@@ -43,13 +46,13 @@ const Profile = () => {
     useEffect(  () => {
         (
             async () => {
-                const {data} = await axios.get(`users/${user_name}`);
+                const {data} = await axios.get(`client/users/${id}`);
                 setUser(new User(
                     data.id,
                     data.first_name,
                     data.last_name,
                     data.email,
-                    data.user_name,
+                    data.username,
                     data.country,
                     data.profile_pic,
                     data.phone,

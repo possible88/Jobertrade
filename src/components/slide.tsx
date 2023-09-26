@@ -77,15 +77,15 @@ const slide = () => {
     </div>
     {/* The slideshow/carousel */}
     <div className="carousel-inner">
-      <div className="carousel-item active" style={{backgroundColor: 'black'}}>
+      <div className="carousel-item active" style={{backgroundColor: '#51644c'}}>
         <img src="image/profile.jpg" alt="Jobertrade" className="d-block" height={400} style={{width: '100%', objectFit: 'contain'}} />
         
       </div>
-      <div className="carousel-item" style={{backgroundColor: 'black'}}>
+      <div className="carousel-item" style={{backgroundColor: '#51644c'}}>
         <img src="image/Mercedes-Benz GLE43g.jpeg" alt="Jobertrade" className="d-block" height={400} style={{width: '100%', objectFit: 'contain'}} />
          
       </div>
-      <div className="carousel-item" style={{backgroundColor: 'black'}}>
+      <div className="carousel-item" style={{backgroundColor: '#51644c'}}>
         <img src="image/WhatsApp Image 2021-11-30 at 6.23.46 AM (1).jpeg" alt="Jobertrade" className="d-block" height={400} style={{width: '100%', objectFit: 'contain'}} />
           
       </div>

@@ -33,7 +33,7 @@ body {
 }
 
 .form-control {
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 
@@ -98,22 +98,22 @@ body {
   color: #fff;
   background-color: rgba(255, 255, 255, .1);
   border-color: rgba(255, 255, 255, .1);
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 .btn{
-  border-radius: 25px;
+  border-radius: 5px;
   border: none;
 }
 
 .form-floating>.form-control {
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 .bottomNav{
@@ -132,9 +132,9 @@ body {
   font-weight: 400;
   border: 0;
   box-shadow: none;
-  border-radius: 25px !important;
+  border-radius: 5px !important;
 }
 
 img {
-  border-radius: 25px !important;
+  border-radius: 5px !important;
 }

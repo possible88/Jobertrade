@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Wrapper from "../components/Wrapper";
-import Product from "../components/Product";
+import Products from "../components/Product";
 
 const Home = () => {
 
     return (
       <Wrapper>
-          <Product/>
+          <Products/>
       </Wrapper>
     );
 };

@@ -50,19 +50,21 @@ const Buy = () => {
         setValue(newValue);
     };
 
-    const mobile = "mobile";
-    const vehicles = "vehicles";
-    const fashion = "fashion";
-    const computer = "computer";
-    const electronics = "electronics";
-    const property = "property";
-    const agriculture = "agriculture";
-    const furniture = "furniture";
-    const health = "health";
-    const repair = "repair";
-    const kids = "kids";
-    const pets = "pets";
-    const sports = "sports";
+    const Mobile = "Mobile";
+    const Computer = "Computer";
+    const Watches = "Watches";
+    const Trucks = "Trucks";
+    const Tablets = "Tablets";
+    const Buses = "Buses";
+    const Accessories = "Accessories";
+    const Shoes = "Shoes";
+    const Cars = "Cars";
+    const Clothing = "Clothing";
+    const Bags = "Bags";
+    const Jewellery = "Jewellery";
+    const Games = "Games";
+    const Networking = "Networking";
+    const Cameras = "Cameras";
 
     return (
         <>
@@ -72,71 +74,75 @@ const Buy = () => {
                     <Tabs value={value} onChange={handleChange} variant="scrollable"
                           scrollButtons={false}
                           aria-label="scrollable prevent tabs example">
-                      <Tab label="All" {...a11yProps(0)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Mobile Phones" {...a11yProps(1)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Computers" {...a11yProps(2)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Vehicles" {...a11yProps(3)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Property" {...a11yProps(4)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Electronics" {...a11yProps(5)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Furniture & Appliances" {...a11yProps(6)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Fashion" {...a11yProps(7)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Health & Beauty" {...a11yProps(8)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Repair & Construction" {...a11yProps(9)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Agriculture & Food" {...a11yProps(10)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Kids" {...a11yProps(11)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Pets" {...a11yProps(12)} sx={{ fontSize: 12 }}/>
-                        <Tab label="Sports" {...a11yProps(13)} sx={{ fontSize: 12 }}/>
+                      <Tab label="Mobile Phones" {...a11yProps(0)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Computer" {...a11yProps(1)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Tablets" {...a11yProps(2)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Watches" {...a11yProps(3)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Accessories" {...a11yProps(4)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Buses" {...a11yProps(5)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Cars" {...a11yProps(6)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Trucks" {...a11yProps(7)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Clothing" {...a11yProps(8)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Bags" {...a11yProps(9)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Shoes" {...a11yProps(10)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Jewellery" {...a11yProps(11)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Games" {...a11yProps(12)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Networking" {...a11yProps(13)} sx={{ fontSize: 12 }}/>
+                        <Tab label="Cameras" {...a11yProps(14)} sx={{ fontSize: 12 }}/>
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
 
-                <Allproducts/>
+                <CategoryProduct Mobile={Mobile}/>
 
                 </TabPanel>
                 <TabPanel value={value} index={1}>
 
-                        <CategoryProduct mobile={mobile}/>
+                        <CategoryProduct Computer={Computer}/>
 
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                <CategoryProduct computer={computer}/>
+                <CategoryProduct Tablets={Tablets}/>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
 
-                  <CategoryProduct vehicles={vehicles}/>
+                  <CategoryProduct Watches={Watches}/>
 
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                  <CategoryProduct property={property}/>
+                  <CategoryProduct Accessories={Accessories}/>
                 </TabPanel>
                 <TabPanel value={value} index={5}>
-                  <CategoryProduct electronics={electronics}/>
+                  <CategoryProduct Buses={Buses}/>
                 </TabPanel>
                 <TabPanel value={value} index={6}>
-<CategoryProduct furniture={furniture}/>
+<CategoryProduct Cars={Cars}/>
 
 
                 </TabPanel>
                 <TabPanel value={value} index={7}>
-                   <CategoryProduct fashion={fashion}/>
+                   <CategoryProduct Trucks={Trucks}/>
                 </TabPanel>
                 <TabPanel value={value} index={8}>
-                   <CategoryProduct health={health}/>
+                   <CategoryProduct Clothing={Clothing}/>
                 </TabPanel>
                 <TabPanel value={value} index={9}>
-                 <CategoryProduct repair={repair}/>
+                 <CategoryProduct Bags={Bags}/>
                 </TabPanel>
                 <TabPanel value={value} index={10}>
-                   <CategoryProduct agriculture={agriculture}/>
+                   <CategoryProduct Shoes={Shoes}/>
                 </TabPanel>
                 <TabPanel value={value} index={11}>
-                  <CategoryProduct  kids={ kids}/>
+                  <CategoryProduct  Jewellery={ Jewellery}/>
                 </TabPanel>
                 <TabPanel value={value} index={12}>
-                 <CategoryProduct pets={pets}/>
+                 <CategoryProduct Games={Games}/>
                 </TabPanel>
                 <TabPanel value={value} index={13}>
-                   <CategoryProduct sports={sports}/>
+                   <CategoryProduct Networking={Networking}/>
+                </TabPanel>
+                <TabPanel value={value} index={13}>
+                   <CategoryProduct Cameras={Cameras}/>
                 </TabPanel>
             </Box>
         </>

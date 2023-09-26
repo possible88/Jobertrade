@@ -17,9 +17,9 @@ import Chatype from '../components/Chatype';
 const Message = () => {
     const [user, setUser] = useState(new User());
     
-    const { user_name } = useParams();
+    const { username } = useParams();
 
-    const user_to = user_name;
+    const user_to = username;
 
     useEffect(  () => {
         (
@@ -30,7 +30,7 @@ const Message = () => {
                     data.first_name,
                     data.last_name,
                     data.email,
-                    data.user_name,
+                    data.username,
                     data.country,
                     data.profile_pic,
                     data.phone,
@@ -63,7 +63,7 @@ const Message = () => {
                                                             <span className="state"></span>
                                                     </div>
                                                     <div className="data" style={{left: '10px', position: 'relative'}}>
-                                                        <Link to={`/profile/${user.user_name}`}><p className="name mb-0"><strong>{user.name}</strong></p></Link>
+                                                        <Link to={`/profile/${user.username}`}><p className="name mb-0"><strong>{user.name}</strong></p></Link>
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,7 +1,7 @@
 import React, {SyntheticEvent, useState} from 'react';
 import '../Login.css';
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {Button} from "@material-ui/core";
 import LoginIcon from '@material-ui/icons/AccountCircle';
 import GoBack from '../components/goBack';
@@ -9,47 +9,59 @@ import GoBack from '../components/goBack';
 const Register = () => {
     const [first_name, setFirstname] = useState('');
     const [last_name, setLastname] = useState('');
-    const [user_name, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirm, setPassword2] = useState('');
     const [country, setCountry] = useState('');
     const [err, setErr] = useState('');
-
+    const [redirect, setRedirect] = useState(false);
 
     const submit =  async (e: SyntheticEvent) => {
       e.preventDefault();
 
-
-       await axios.post('register', {
-first_name,
+      try {
+        const response = await axios.post(`client/register`, {
+          first_name,
           last_name,
-          user_name,
           email,
-           phone,
+          phone,
           password,
           password_confirm,
           country,
-      }).then(response => {
-           setErr(response.data.message)
+        });
+  
+        if (response.status === 200) {
+          const response = await axios.post(`client/login`, {
+            email,
+            password,
+          });
+  
+          if (response.status === 200) {
+            setRedirect(true);
+          } else {
+            throw setErr(`${JSON.stringify(response.data)}`);
+          }
+        } else {
+          throw setErr(`${JSON.stringify(response.data)}`);
+        }
+      } catch (error: any) {
+        setErr(`${JSON.stringify(error.response.data)}`);
+        // setIsLoading(false);
+      }
 
-       })
-           .catch(error => {
-               setErr(error.response.data.message)
-
-           });
-
-
+    }
+    if (redirect) {
+        return <Navigate to={'/'}/>;
     }
     return (
 <>
         <GoBack/>
-        <main className="form-signin" style={{backgroundColor: '#f2f2f2', padding: '10px', borderRadius: '25px'}}>
+        <main className="form-signin" style={{padding: '10px'}}>
             <form onSubmit={submit}>
             <div style={{marginBottom: '90px', position: 'relative'}}>
                 <h1 className="h3 mb-3 fw-normal" style={{textAlign:'center', fontWeight: 'bold !important'}}>Join</h1>
-                <Link to='/login' style={{float: 'right', boxShadow: '0 0 0.475rem 0 rgb(170, 170, 170)', borderRadius: '25px'}}><Button startIcon={<LoginIcon/>} color="primary" variant="text">Login</Button></Link>
+                <Link to='/login' style={{float: 'right', borderRadius: '5px'}}><Button startIcon={<LoginIcon/>} color="primary" variant="text">Login</Button></Link>
             </div>
                 <div className="form-floating">
                     <input type="text" className="form-control" id="floatingInput1"  placeholder="" required onChange={event => setFirstname(event.target.value)}/>
@@ -58,10 +70,6 @@ first_name,
                 <div className="form-floating">
                     <input type="text" className="form-control" id="floatingInput2" placeholder="" required onChange={event => setLastname(event.target.value)}/>
                     <label htmlFor="floatingInput2">Last Name</label>
-                </div>
-                <div className="form-floating">
-                    <input type="text" className="form-control" id="floatingInput3" placeholder="" required onChange={event => setUsername(event.target.value)}/>
-                    <label htmlFor="floatingInput3">Username</label>
                 </div>
                 <div className="form-floating">
                     <input type="email" className="form-control" id="floatingInput4" placeholder="" required onChange={event => setEmail(event.target.value)}/>

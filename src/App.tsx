@@ -23,6 +23,8 @@ import Viewjob from './pages/Viewjob';
 import OJob from './openpages/Job';
 import Abouts from './pages/About';
 import Category from './pages/Category';
+import SearchDetail from './pages/SearchDetail';
+import FilterDetail from './pages/FilterDetail';
 
 function App() {
 
@@ -32,9 +34,11 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<Home />} />
                 <Route path='/search' element={<Search />} />
+                <Route path='/search/:search_name' element={<SearchDetail />} />
+                <Route path='/filter/:name/:brand/:condition/:negotiation' element={<FilterDetail />} />
                 <Route path='/create' element={<Create />} />
                 <Route path='/message' element={<Message />} />
-                <Route path='/profile/:user_name' element={<Profile />} />
+                <Route path='/profile/:username/:id' element={<Profile />} />
                 <Route path='/buy' element={<Buy />} />
                 <Route path='/job' element={<Job />} />
                 <Route path='/viewads/:user_name' element={<ViewAds />} />
@@ -47,35 +51,39 @@ function App() {
                 <Route path='/items' element={<OBuy />} />
                 <Route path='/jobs' element={<OJob />} />
                 <Route path='/createJob' element={<CreateJob />} />
-                <Route path='/:mobile' element={<Category />} />
-                <Route path='/:vehicles' element={<Category />} />
-                <Route path='/:fashion' element={<Category />} />
-                <Route path='/:computer' element={<Category />} />
-                <Route path='/:electronics' element={<Category />} />
-                <Route path='/:property' element={<Category />} />
-                <Route path='/:agriculture' element={<Category />} />
-                <Route path='/:furniture' element={<Category />} />
-                <Route path='/:health' element={<Category />} />
-                <Route path='/:repair' element={<Category />} />
-                <Route path='/:kids' element={<Category />} />
-                <Route path='/:pets' element={<Category />} />
-                <Route path='/:sports' element={<Category />} />
-                <Route path='/products/:id/:title' element={<View />} />
-                <Route path='/buy/products/:id/:title' element={<View />} />
+                <Route path='/:Mobile' element={<Category />} />
+                <Route path='/:Tablets' element={<Category />} />
+                <Route path='/:Watches' element={<Category />} />
+                <Route path='/:Accessories' element={<Category />} />
+                <Route path='/:Cars' element={<Category />} />
+                <Route path='/:Buses' element={<Category />} />
+                <Route path='/:Trucks' element={<Category />} />
+                <Route path='/:Clothing' element={<Category />} />
+                <Route path='/:Bags' element={<Category />} />
+                <Route path='/:Shoes' element={<Category />} />
+                <Route path='/:Jewellery' element={<Category />} />
+                <Route path='/:Computer' element={<Category />} />
+                <Route path='/:Games' element={<Category />} />
+                <Route path='/:Networking' element={<Category />} />
+                <Route path='/:Cameras' element={<Category />} />
+                <Route path='/:Category/:id/:Title' element={<View />} />
+                {/* <Route path='/buy/products/:id/:title' element={<View />} />
                 <Route path='/search/products/:id/:title' element={<View />} />
-                <Route path='/mobile/products/:id/:title' element={<View />} />
-                <Route path='/vehicles/products/:id/:title' element={<View />} />
-                <Route path='/fashion/products/:id/:title' element={<View />} />
-                <Route path='/computer/products/:id/:title' element={<View />} />
-                <Route path='/electronics/products/:id/:title' element={<View />} />
-                <Route path='/agriculture/products/:id/:title' element={<View />} />
-                <Route path='/furniture/products/:id/:title' element={<View />} />
-                <Route path='/Health-Beauty/products/:id/:title' element={<View />} />
-                <Route path='/repair/products/:id/:title' element={<View />} />
-                <Route path='/kids/products/:id/:title' element={<View />} />
-                <Route path='/pets/products/:id/:title' element={<View />} />
-                <Route path='/sports/products/:id/:title' element={<View />} />
-                <Route path='/property/products/:id/:title' element={<View />} />
+                <Route path='/Mobile/products/:id/:title' element={<View />} />
+                <Route path='/Tablets/products/:id/:title' element={<View />} />
+                <Route path='/Watches/products/:id/:title' element={<View />} />
+                <Route path='/Accessories/products/:id/:title' element={<View />} />
+                <Route path='/Cars/products/:id/:title' element={<View />} />
+                <Route path='/Trucks/products/:id/:title' element={<View />} />
+                <Route path='/Clothing/products/:id/:title' element={<View />} />
+                <Route path='/Bags-Beauty/products/:id/:title' element={<View />} />
+                <Route path='/Shoes/products/:id/:title' element={<View />} />
+                <Route path='/Jewellery/products/:id/:title' element={<View />} />
+                <Route path='/Computer/products/:id/:title' element={<View />} />
+                <Route path='/Games/products/:id/:title' element={<View />} />
+                <Route path='/Buses/products/:id/:title' element={<View />} />
+                <Route path='/Networking/products/:id/:title' element={<View />} />
+                <Route path='/Cameras/products/:id/:title' element={<View />} /> */}
                 <Route path='/viewads/:user_name/products/:id/:title' element={<View />} />
                 <Route path={'/message/:user_name'} element={<Message />} />
                 <Route path='/jobs/:id/:title' element={<Viewjob />} />

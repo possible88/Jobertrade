@@ -4,96 +4,86 @@ import Loading from "../components/Loading";
 import { Products } from "../models/product";
 import { Link } from "react-router-dom";
 
+import { Product } from "../models/Products";
+import '../style.css'; // Import your CSS file here
+import GoBack from "./goBack";
+
 
 const CategoryProduct = (props: any) => {
-    const [products, setproducts] = useState<Products[]>([]);
-    const [page, setPage] = useState(1);
-    const [hasEnded, setHasEnded] = useState(false); // to indicate whether or not we've fetched all the records
-    const [loading, setLoading] = useState(true);
-
     let items: any;
 
-    items = props.mobile || props.vehicles || props.fashion || props.computer || props.electronics || props.property || props.agriculture || props.furniture || props.health || props.repair || props.kids || props.pets || props.sports;
-  
-    const container = React.useRef<HTMLInputElement>(null);
-  
+    items = props.Mobile || props.Tablets || props.Watches || props.Accessories || props.Cars || props.Buses || props.Trucks || props.Clothing || props.Bags || props.Shoes || props.Jewellery || props.Computer || props.Games || props.Networking || props.Cameras;
+    
+    
+    console.log(items);
+    
+    const [product, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-      if (!hasEnded) {
-        fetch();
-      }
-  
-      return () => {
-        document.removeEventListener("scroll", trackScrolling);
-      };
-    }, [page]);
-  
-    useEffect(() => {
-      document.addEventListener("scroll", trackScrolling);
-    }, [products]);
-  
-    const trackScrolling = () => {
-      if (
-          container &&
-          container.current &&
-          container.current.getBoundingClientRect().bottom <= window.innerHeight
-      ) {
-        setPage(page + 1);
-  
-        document.removeEventListener("scroll", trackScrolling);
+      // Fetch products based on the category
+      axios
+        .get<Product[]>(`client/product?category=${items}`)
+        .then((res) => {
+          setProducts(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
+    }, [items]);
+
+    const handleProductViewSubmit = async (id: number) => {
+      console.log('Submitted:', id);
+      const product_id = id;
+      try {
+        const response = await axios.post('client/view/post/create', {
+          product_id,
+        });
+        if (response.status === 201) {
+          console.log('Post request successful');
+          // Handle success, if needed
+        } else {
+          console.log('Post request failed with status:', response.status);
+          // Handle failure, if needed
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle any errors that occurred during the request
       }
     };
   
-    const fetch = async () => {
-      setLoading(true);
+    const renderProduct = (item: Product) => (
+      <div key={item.id} className="product-container" style={{ width: '140px', margin: '5px' }}>
+            <div  className="product-card">
+            <Link to={`/${item.Category}/${item.id}/${item.Title}`} onClick={() => {
+          handleProductViewSubmit(item.id);
+        }}>
+              <img
+                src={item.images[0]?.image}
+                alt={item.Category}
+                className="product-image"
+              /><br/><br />
+              <h5 style={{ fontSize: '12px', fontWeight: 'bold', color: 'black'}}>{item.Title.slice(0, 19)}</h5>
+                <h6 style={{ fontSize: '12px', color: 'black'}}>{'₦'}{item.Price}</h6>
+                </Link>
+                </div>
+          </div>
+    );
   
-      const { data } = await axios.get(
-        `products/category/${items}?page=${page}`
-      );
-  
-      if (data.data.length === 0) {
-        setHasEnded(true);
-      } else {
-        setproducts([...products, ...data.data]);
-      }
-  
-      setLoading(false);
-    };
-  
-    const renderproducts = () => {
-      return products.map((products) => {
-        return (
-          <div key={products.id}>
-                              <Link to={`products/${products.id}/${products.title}`} className='card'>
-                                  <h6 style={{position: 'absolute', fontSize: 'small', margin: '5px', backgroundColor: '#8B0909', padding: '5px', borderRadius: '20px', color: '#EFEBEB'}}>{products.price}</h6>
-                                  <img src={products.image} className="lazyload" height="200"/>
-                                  <div className="card-body" style={{backgroundColor: '#fff', height: '75px'}}>
-                                      <h6 style={{fontSize: 'small'}}><b>{products.title}</b></h6>
-                                  </div>
-                                  <div className="card-footer">
-                                      <h6 style={{float: 'right', fontSize: 'small'}}>{products.country}</h6>
-                                  </div>
-  
-                              </Link>
-                          </div>
-  
-        );
-      });
-    };
-  
-    if (!products) return <div />;
+    if (loading) {
+      return <Loading />; // You can replace this with your loading component
+    }
   
     return (
-      <div ref={container}>
-           <div className="alllist">
-        {renderproducts()}
-        {loading && <Loading />}
-        {hasEnded && (
-          <div className="end-products-msg">
-            <p></p>
-          </div>
-        )}
-        </div>
+      <>
+      <div className="row">
+        {product.map((item) => (
+            renderProduct(item)
+        ))}
       </div>
+      </>
     );
   };
   

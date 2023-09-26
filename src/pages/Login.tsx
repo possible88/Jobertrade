@@ -14,16 +14,21 @@ const Login = () => {
    const submit = async (e:SyntheticEvent) => {
      e.preventDefault();
 
-     await axios.post('login',{
-         email,
-         password,
-     }).then(response => {
-         console.log(response.data)
-         setRedirect(true);
-     })
-         .catch(error => {
-             setErr(error.response.data.message)
-         });
+     try {
+        const response = await axios.post(`client/login`, {
+          email,
+          password,
+        });
+  
+        if (response.status === 200) {
+            setRedirect(true);
+        } else {
+          throw setErr(`${JSON.stringify(response.data)}`);
+        }
+      } catch (error: any) {
+        setErr(`${JSON.stringify(error.response.data)}`);
+        // setIsLoading(false);
+      }
 
 
    }
@@ -34,7 +39,7 @@ const Login = () => {
     return (
 <>
 <GoBack/>
-        <main className="form-signin" style={{backgroundColor: '#f2f2f2', padding: '10px', borderRadius: '25px'}}>
+        <main className="form-signin" style={{padding: '10px'}}>
 
             <form onSubmit={submit}>
 
@@ -42,7 +47,7 @@ const Login = () => {
 
                 <div style={{marginBottom: '90px', position: 'relative'}}>
                     <h1 className="h3 mb-3 fw-normal" style={{textAlign:'center', fontWeight: 'bold !important'}}>Login</h1>
-                    <Link to='/register' style={{float: 'right', boxShadow: '0 0 0.475rem 0 rgb(170, 170, 170)', borderRadius: '25px'}}><Button startIcon={<LoginIcon/>} color="primary" variant="text">Register</Button></Link>
+                    <Link to='/register' style={{float: 'right', borderRadius: '5px'}}><Button startIcon={<LoginIcon/>} color="primary" variant="text">Register</Button></Link>
                 </div>
                 <p style={{textAlign: 'center', fontWeight: 'bold'}}>{err}</p>
                 <div className="form-floating">

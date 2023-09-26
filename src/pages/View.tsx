@@ -18,6 +18,8 @@ import Swal from 'sweetalert2';
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import { Product } from '../models/Products';
+import Loading from '../components/Loading';
 
 
 const style = {
@@ -33,103 +35,131 @@ const style = {
   };
 
 const View = () => {
-    const [products, setProducts] = useState(new Products());
-    const [photo, setPhoto] = useState<Images[]>([]);
+    const [products, setProduct] = useState<Product | null>(null);
+    // const [photo, setPhoto] = useState<Images[]>([]);
     const { id } = useParams();
-
-    const [user, setUser] = useState(new User());
-    const [redirect, setRedirect] = useState(false);
-    const [productInput , setProduct] = useState({
-        price : '',
-
-    });
-
-    const [err, setErr] = useState('');
-
-    const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-    console.log({id})
-
-    const handleInput = (e: any) => {
-        e.persist();
-        setProduct({...productInput, [e.target.name]:e.target.value});
-    }
-
-
-    const submit = async (e:SyntheticEvent) => {
-
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append("price", productInput.price)
+    const { Category } = useParams();
     
-        await axios.put(`products/${id}`, formData).then(response => {
-            Swal.fire("Success",response.data.message,"success");
-
-        })
-            .catch(error => {
-                setErr(error.response.data.message)
-
-            });
-
-    };
-
-    useEffect(  () => {
-        (
-            async () => {
-                const {data} = await axios.get('user');
-                setUser(new User(
-                    data.id,
-                    data.first_name,
-                    data.last_name,
-                    data.email,
-                    data.user_name,
-                    data.country,
-                    data.profile_pic,
-                    data.phone,
-                ));
-            }
-        )();
-    }, []);
+    const [product2, setProduct2] = useState<Product[]>([]);
 
 
+    // const [user, setUser] = useState(new User());
+    // const [redirect, setRedirect] = useState(false);
+    // const [productInput , setProduct] = useState({
+    //     price : '',
 
-    useEffect(  () => {
-        (
-            async () => {
-                const {data} = await axios.get(`products/${id}`);
-                setProducts(new Products(
-                    data.id,
-                    data.title,
-                    data.description,
-                    data.condition,
-                    data.state,
-                    data.country,
-                    data.image,
-                    data.price,
-                    data.added_by,
-                    data.first_name,
-                    data.last_name,
-                    data.email,
-                ));
-                // setlLastPage(data.meta.last_page);
-            }
-        )();
-    }, []);
+    // });
+
+//     const [err, setErr] = useState('');
+
+//     const [open, setOpen] = React.useState(false);
+//   const handleOpen = () => setOpen(true);
+//   const handleClose = () => setOpen(false);
+
+    // console.log({id})
+    // console.log({Category})
+
+    // const handleInput = (e: any) => {
+    //     e.persist();
+    //     setProduct({...productInput, [e.target.name]:e.target.value});
+    // }
 
 
-    useEffect(  () => {
-        (
-            async () => {
-                const {data} = await axios.get(`products/photo/${id}`);
-                setPhoto(data.data);
-                // setlLastPage(data.meta.last_page);
-                console.log(data.data)
-            }
-        )();
-    }, []);
+    // const submit = async (e:SyntheticEvent) => {
+
+    //     e.preventDefault();
+
+    //     const formData = new FormData();
+    //     formData.append("price", productInput.price)
+    
+    //     await axios.put(`products/${id}`, formData).then(response => {
+    //         Swal.fire("Success",response.data.message,"success");
+
+    //     })
+    //         .catch(error => {
+    //             setErr(error.response.data.message)
+
+    //         });
+
+    // };
+
+    // useEffect(  () => {
+    //     (
+    //         async () => {
+    //             const {data} = await axios.get('user');
+    //             setUser(new User(
+    //                 data.id,
+    //                 data.first_name,
+    //                 data.last_name,
+    //                 data.email,
+    //                 data.user_name,
+    //                 data.country,
+    //                 data.profile_pic,
+    //                 data.phone,
+    //             ));
+    //         }
+    //     )();
+    // }, []);
+
+
+
+    useEffect(() => {
+        // Make sure to use the correct API endpoint and handle errors properly
+        axios
+          .get<Product>(`client/product/${id}`)
+          .then(res => setProduct(res.data))
+          .catch(err => {
+            console.error(err); // Log the error for debugging
+            setProduct(null); // Set product to null to indicate an error
+          });
+      }, [id]);
+
+      useEffect(() => {
+        // Fetch products based on the category
+        axios
+          .get<Product[]>(`client/product?category=${Category}`)
+          .then((res) => {
+            setProduct2(res.data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }, [Category]);
+
+    
+  
+      const handleProductViewSubmit = async (id: number) => {
+        console.log('Submitted:', id);
+        const product_id = id;
+        try {
+          const response = await axios.post('client/view/post/create', {
+            product_id,
+          });
+          if (response.status === 201) {
+            console.log('Post request successful');
+            // Handle success, if needed
+          } else {
+            console.log('Post request failed with status:', response.status);
+            // Handle failure, if needed
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // Handle any errors that occurred during the request
+        }
+      };
+    
+    
+
+    // useEffect(  () => {
+    //     (
+    //         async () => {
+    //             const {data} = await axios.get(`products/photo/${id}`);
+    //             setPhoto(data.data);
+    //             // setlLastPage(data.meta.last_page);
+    //             console.log(data.data)
+    //         }
+    //     )();
+    // }, []);
 
 //     const picimage = photo.image;
 //     const picid = photo.id;
@@ -139,94 +169,120 @@ const View = () => {
 
 
 
-    const del = async (id: number) => {
-        if (window.confirm('Are you sure you want to delete this record')) {
-            await axios.delete(`products/${id}`)
-            .then(response => {
-                setRedirect(true);
-            });
-        }
-    }
+    // const del = async (id: number) => {
+    //     if (window.confirm('Are you sure you want to delete this record')) {
+    //         await axios.delete(`products/${id}`)
+    //         .then(response => {
+    //             setRedirect(true);
+    //         });
+    //     }
+    // }
 
-    const user_name = products.added_by;
+    // const user_name = products.added_by;
 
-    // console.log(user_name)
+    // // console.log(user_name)
 
-    let message;
-
-
-
-    if (user.user_name != user_name) {
-        message = ( <Link to={`/message/${user_name}`}><button className="btn btn-primary btn-sm"><span
-            data-feather="message-square">Message</span></button></Link>)
-    }
-
-    let edit;
+    // let message;
 
 
-    if (user.user_name == user_name) {
-        edit = (<button className="btn btn-primary btn-sm" onClick={handleOpen}><span
-            data-feather="message-square">Edit</span></button>)
-    }
 
-    let dele;
+    // if (user.user_name !== user_name) {
+    //     message = ( <Link to={`/message/${user_name}`}><button className="btn btn-primary btn-sm"><span
+    //         data-feather="message-square">Message</span></button></Link>)
+    // }
 
-    if (user.user_name == user_name) {
-      dele = ( <a href="#" onClick={() => del(products.id)}><button className="btn btn-primary btn-sm"><span
-            data-feather="message-square">Delete</span></button></a>)
-    }
+    // let edit;
 
-    if (redirect) {
-        return <Navigate to={'/'}/>;
-    }
+
+    // if (user.user_name === user_name) {
+    //     edit = (<button className="btn btn-primary btn-sm" onClick={handleOpen}><span
+    //         data-feather="message-square">Edit</span></button>)
+    // }
+
+    // let dele;
+
+    // if (user.user_name === user_name) {
+    //   dele = ( <a href="#" onClick={() => del(products.id)}><button className="btn btn-primary btn-sm"><span
+    //         data-feather="message-square">Delete</span></button></a>)
+    // }
+
+    // if (redirect) {
+    //     return <Navigate to={'/'}/>;
+    // }
+
+    if (products === null) {
+        return <Loading />;
+      }
+
+  
+     
+      const renderProduct = (item: Product) => (
+        <div key={item.id} className="product-container" style={{ width: '140px', margin: '5px' }}>
+              <div  className="product-card">
+              <Link to={`/${item.Category}/${item.id}/${item.Title}`} onClick={() => {
+            handleProductViewSubmit(item.id);
+          }}>
+                <img
+                  src={item.images[0]?.image}
+                  alt={item.Category}
+                  className="product-image"
+                /><br/><br/>
+                <h5 style={{ fontSize: '12px', fontWeight: 'bold', color: 'black'}}>{item.Title.slice(0, 19)}</h5>
+                  <h6 style={{ fontSize: '12px', color: 'black'}}>{'₦'}{item.Price}</h6>
+                  </Link>
+                  </div>
+            </div>
+      );
 
 
     return (
-
-
+<>
+        <GoBack/>
             <div className="container">
 
-                <GoBack/>
+             
                         <div className=" row">
-                            <div className="preview col-12 col-lg-8 col-xxl-9 d-flex">
+                            <div className="preview col-12 col-lg-6 col-xxl-7 d-flex">
                             <div className="card flex-fill" style={{boxShadow:'none'}}>
-                            {/* <!-- Carousel wrapper --> */}
-                  
-                          <OwlCarousel items={1} autoplay ={true} loop>
-                          {photo.map(photo => {
-                        return(       
-                <div>
-                    <img src={photo.image} alt={photo.image} className="lazyload" />
-                  
+                          {/* Carousel wrapper */}
+            <OwlCarousel items={1} autoplay={true} loop>
+              {products.images.map((photo) => (
+                <div key={photo.id}>
+                  <img src={photo.image} alt={photo.image} className="lazyload" style={{height:'400px', objectFit:'contain', borderRadius:'20px'}} />
                 </div>
-                  )})}
+              ))}
             </OwlCarousel>
                                 
                            </div>
+                           
                             </div>
                             <div className="details col-12 col-lg-4 col-xxl-3 d-flex">
                             <div className="card flex-fill w-100" style={{boxShadow:'none'}}>
                                 <div className="card-header">
-                                {message}
+                                {/* {message}
                                 {edit}
-                                {dele}
+                                {dele} */}
                                 </div>
-                                <h6 className="list-group-item"><strong>Name:</strong><Link to={`/profile/${products.added_by}`}> {products.first_name} {products.last_name}</Link></h6>
-                                <h6 className="list-group-item"><strong>Email:</strong> {products.email}</h6>
-                                <h6 className="list-group-item">{products.title}</h6>
-                                <h6 className="list-group-item">{products.description}</h6>
-                                <h6 className="list-group-item"><strong>Price:</strong> {products.price}</h6>
-                                <h6 className="list-group-item"><strong>Location:</strong> {products.state}  {products.country}
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Title:</strong> {products.Title}</h6>
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Description:</strong> {products.Description}</h6>
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Price:</strong> {'₦'}{products.Price}</h6>
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Location:</strong> {products.State}  {products.Country}
                                 </h6>
-                                <h6 className="list-group-item"><strong>Condition:</strong> {products.condition}
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Condition:</strong> {products.Itemcondition}
                                 </h6>
 
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Views:</strong> {products.views}</h6>
+                                
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Name:</strong><Link to={`/profile/${products.email}`} style={{ color: 'black'}}> {products.first_name} {products.last_name}</Link></h6>
+                                <h6 className="list-group-item" style={{ fontSize: '12px', color: 'black'}}><strong>Email:</strong> {products.email}</h6>
+                                
 
 </div>
 
+
                             </div>
 
-                            <Modal
+                            {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -249,9 +305,18 @@ const View = () => {
                     </form>
           </Typography>
         </Box>
-      </Modal>
+      </Modal> */}
                         </div>
+      <div  className="product-card" style={{marginLeft: '40px'}}>
+      <div className="row">
+        {product2.map((item) => (
+            renderProduct(item)
+        ))}
+      </div>
+      </div> 
             </div>
+            
+            </>
 
     );
 };

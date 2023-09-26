@@ -13,9 +13,10 @@ code {
 }
 
 .form-control {
-  border-radius: 25px !important;
-  border: none !important;
+  border-radius: 5px !important;
+  /* border: none !important; */
 }
+
 
 button {
   border-radius: 25px !important;

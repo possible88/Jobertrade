@@ -4,7 +4,7 @@ export class User {
         public first_name : string = '',
         public last_name : string = '',
         public email : string = '',
-        public user_name : string = '',
+        public username : string = '',
         public country : string = '',
         public profile_pic : string = '',
         public phone : string = '',
@@ -21,7 +21,5 @@ export class User {
         return this.first_name + ' ' + this.last_name;
     }
 
-    get username() {
-        return this.user_name;
-    }
+    
 }

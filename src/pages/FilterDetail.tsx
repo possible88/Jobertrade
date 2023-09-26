@@ -1,68 +1,28 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import Loading from "../components/Loading";
-import { Products } from "../models/product";
-import { Link, useParams } from "react-router-dom";
-import GoBack from "../components/goBack";
-import { Product } from "../models/Products";
-import '../style.css'; // Import your CSS file here
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
+import Loading from '../components/Loading';
+import { Product } from '../models/Products';
+import axios from 'axios';
+import GoBack from '../components/goBack';
 
-const Category = () => {
-    // Define a type that represents the parameters you expect to receive
-
-type RouteParams = {
-  Mobile: string;
-  Tablets: string;
-  Watches: string;
-  Accessories: string;
-  Cars: string;
-  Buses: string;
-  Trucks: string;
-  Clothing: string;
-  Bags: string;
-  Shoes: string;
-  Jewellery: string;
-  Computer: string;
-  Games: string;
-  Networking: string;
-  Cameras: string;
-};
-
-// Use the typed useParams hook
-const {
-  Mobile,
-  Tablets,
-  Watches,
-  Accessories,
-  Cars,
-  Buses,
-  Trucks,
-  Clothing,
-  Bags,
-  Shoes,
-  Jewellery,
-  Computer,
-  Games,
-  Networking,
-  Cameras,
-} = useParams<RouteParams>();
+export default function FilterDetail() {
+    const { name } = useParams();
+    const { negotiation } = useParams();
+    const { condition } = useParams();
+    const { brand } = useParams();
+    console.log(name);
+    console.log(brand);
+    console.log(condition);
+    console.log(negotiation);
 
 
-
-    let items: any;
-
-    items = Mobile || Tablets || Watches || Accessories || Cars || Buses || Trucks || Clothing || Bags || Shoes || Jewellery || Computer || Games || Networking || Cameras;
-    
-
-    console.log(items);
-    
     const [product, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       // Fetch products based on the category
       axios
-        .get<Product[]>(`client/product?category=${items}`)
+        .get<Product[]>(`client/product?title=${name}&brand=${brand}&itemcondition=${condition}&negotiation=${negotiation}`)
         .then((res) => {
           setProducts(res.data);
           setLoading(false);
@@ -71,7 +31,7 @@ const {
           console.error(err);
           setLoading(false);
         });
-    }, [items]);
+    }, [name, brand, condition, negotiation]);
 
     const handleProductViewSubmit = async (id: number) => {
       console.log('Submitted:', id);
@@ -106,7 +66,7 @@ const {
                 className="product-image"
               /><br/><br />
               <h5 style={{ fontSize: '12px', fontWeight: 'bold', color: 'black'}}>{item.Title.slice(0, 19)}</h5>
-                <h6 style={{ fontSize: '12px', color: 'black'}}>{item.Price}</h6>
+                <h6 style={{ fontSize: '12px', color: 'black'}}>{'₦'}{item.Price}</h6>
                 </Link>
                 </div>
           </div>
@@ -116,8 +76,8 @@ const {
       return <Loading />; // You can replace this with your loading component
     }
   
-    return (
-      <>
+  return (
+    <>
       <GoBack/>
       <div  className="product-card" style={{marginLeft: '40px'}}>
       <div className="row">
@@ -127,8 +87,5 @@ const {
       </div>
       </div>
       </>
-    );
-};
-
-
-export default Category;
+  )
+}

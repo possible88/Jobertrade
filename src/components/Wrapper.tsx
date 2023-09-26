@@ -11,7 +11,7 @@ const Wrapper = (props: any) => {
         (
             async () => {
                 try {
-                     await axios.get('user');
+                     await axios.get('client/user');
                 }catch (e) {
                     setRedirect(true)
                 }
@@ -27,7 +27,7 @@ const Wrapper = (props: any) => {
    <div>
             <Menu />
             <div className="container-fluid">
-                <div className="row">
+                {/* <div className="row"> */}
 
 
                     <main style={{marginRight: 'auto',
@@ -41,7 +41,7 @@ const Wrapper = (props: any) => {
 
                     </main>
 
-                </div>
+                {/* </div> */}
 
 
 

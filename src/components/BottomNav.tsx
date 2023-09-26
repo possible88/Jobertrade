@@ -6,10 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -58,11 +55,21 @@ const BottomNav = () => {
                         setValue(newValue);
                     }}
                 >
-                    <NavLink to='/'><BottomNavigationAction color="primary" icon={<HomeIcon />} /></NavLink>
-                        <NavLink to='/search'><BottomNavigationAction color="primary" icon={<SearchIcon />} /></NavLink>
-                            <BottomNavigationAction label="Sell" color="primary" onClick={handleOpen} icon={<AddCircleOutlineIcon/>} />
-                                <NavLink to='/message'><BottomNavigationAction color="primary" icon={<MailOutlineIcon/>} /></NavLink>
-                                    <NavLink to='/home' onClick={logout}><BottomNavigationAction color="primary" icon={<LogoutIcon/>} /></NavLink>
+                    <NavLink to='/'><BottomNavigationAction color="primary" 
+                    icon={<HomeIcon />}
+                     /></NavLink>
+                        <NavLink to='/search'><BottomNavigationAction color="primary" 
+                        icon={<SearchIcon />}
+                         /></NavLink>
+                            <BottomNavigationAction label="Sell" color="primary" onClick={handleOpen} 
+                            icon={<AddCircleOutlineIcon/>}
+                             />
+                                <NavLink to='/message'><BottomNavigationAction color="primary" 
+                                icon={<MailOutlineIcon/>}
+                                 /></NavLink>
+                                    <NavLink to='/home' onClick={logout}><BottomNavigationAction color="primary" 
+                                    icon={<LogoutIcon/>}
+                                     /></NavLink>
                 </BottomNavigation>
             </Paper>
 </Box>
@@ -78,8 +85,12 @@ aria-describedby="modal-modal-description"
   Create New
   </Typography>
   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-  <NavLink to='/create'><DialogContent><Button startIcon={<AddShoppingCartIcon/>} variant="contained">Item</Button></DialogContent></NavLink>
-                    <NavLink to='/createJob'><DialogContent><Button startIcon={<WorkIcon/>} variant="contained">Job</Button></DialogContent></NavLink>
+  <NavLink to='/create'><DialogContent><Button 
+  startIcon={<AddShoppingCartIcon/>}
+   variant="contained">Item</Button></DialogContent></NavLink>
+                    <NavLink to='/createJob'><DialogContent><Button 
+                    startIcon={<WorkIcon/>}
+                     variant="contained">Job</Button></DialogContent></NavLink>
 
   </Typography>
 </Box>

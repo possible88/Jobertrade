@@ -36,13 +36,13 @@
      useEffect(  () => {
          (
              async () => {
-                 const {data} = await axios.get('user');
+                 const {data} = await axios.get('client/user');
                  setUser(new User(
                      data.id,
                      data.first_name,
                      data.last_name,
                      data.email,
-                     data.user_name,
+                     data.username,
                      data.country,
                      data.profile_pic,
                      data.phone,
@@ -51,33 +51,35 @@
          )();
      }, []);
 
-     const mobile = "mobile";
-     const vehicles = "vehicles";
-     const fashion = "fashion";
-     const computer = "computer";
-     const electronics = "electronics";
-     const property = "property";
-     const agriculture = "agriculture";
-     const furniture = "furniture";
-     const health = "health";
-     const repair = "repair";
-     const kids = "kids";
-     const pets = "pets";
-     const sports = "sports";
+     const Mobile = "Mobile";
+     const Tablets = "Tablets";
+     const Watches = "Watches";
+     const Accessories = "Accessories";
+     const Cars = "Cars";
+     const Buses = "Buses";
+     const Trucks = "Trucks";
+     const Clothing = "Clothing";
+     const Bags = "Bags";
+     const Shoes = "Shoes";
+     const Jewellery = "Jewellery";
+     const Computer = "Computer";
+     const Games = "Games";
+     const Networking = "Networking";
+     const Cameras = "Cameras";
 
 
 
      const { window } = props;
-     const [mobileOpen, setMobileOpen] = React.useState(false);
+     const [MobileOpen, setMobileOpen] = React.useState(false);
 
      const handleDrawerToggle = () => {
-         setMobileOpen(!mobileOpen);
+         setMobileOpen(!MobileOpen);
      };
 
      const drawer = (
          <Paper sx={{ width: 250, maxWidth: '100%' }}>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/profile/${user.user_name}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                 <Link to={`/profile/${user.username}/${user.id}`} className="list-group-item" style={{borderRadius:'25px'}}>
                      <div className="text-dark"><BiUser/> Profile</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
@@ -86,71 +88,83 @@
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
                  <Link to='/job' className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><WorkIcon fontSize="small" /> Job</div>
+                     <div className="text-dark">
+                        <WorkIcon fontSize="small" />
+                         Job</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/viewads/${user.user_name}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                 <Link to={`/viewads/${user.username}`} className="list-group-item" style={{borderRadius:'25px'}}>
                      <div className="text-dark"><BiShoppingBag/> View all Ads</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
                  <Link to='/setting' className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><SettingsIcon fontSize="small" /> Settings & Privacy</div>
+                     <div className="text-dark">
+                        <SettingsIcon fontSize="small" />
+                         Settings & Privacy</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
                  <Link to='/help' className="list-group-item" style={{borderRadius:'25px'}}>
                      <div className="text-dark"><BiSupport /> Help Center</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${mobile}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                 <Link to={`/${Mobile}`} className="list-group-item" style={{borderRadius:'25px'}}>
                      <div className="text-dark"><VscDeviceMobile/> Mobile Phones</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${vehicles}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><BiCar/> Vehicles</div>
+                 <Link to={`/${Tablets}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><BiCar/> Tablets</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${fashion}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><GiClothes/> Fashion</div>
+                 <Link to={`/${Watches}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><GiClothes/> Watches</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${property}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><VscDeviceMobile/> Property</div>
+                 <Link to={`/${Buses}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><VscDeviceMobile/> Buses</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${computer}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><VscDeviceMobile/> Computers</div>
+                 <Link to={`/${Accessories}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><VscDeviceMobile/> Accessories</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${electronics}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><BiCar/> Electronics</div>
+                 <Link to={`/${Cars}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><BiCar/> Cars</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${furniture}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><GiClothes/> Furniture & Appliances</div>
+                 <Link to={`/${Clothing}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><GiClothes/> Clothing</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${health}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><VscDeviceMobile/> Health & Beauty</div>
+                 <Link to={`/${Bags}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><VscDeviceMobile/> Bags</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${repair}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><BiCar/> Repair & Construction</div>
+                 <Link to={`/${Shoes}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><BiCar/> Shoes</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${agriculture}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><GiClothes/> Agriculture & Food</div>
+                 <Link to={`/${Trucks}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><GiClothes/> Trucks</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${kids}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><VscDeviceMobile/> Kids</div>
+                 <Link to={`/${Jewellery}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><VscDeviceMobile/> Jewellery</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${pets}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><BiCar/> Pets</div>
+                 <Link to={`/${Computer}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><BiCar/> Computer</div>
                  </Link></div>
              <div className="list-group" style={{margin: '5px'}}>
-                 <Link to={`/${sports}`} className="list-group-item" style={{borderRadius:'25px'}}>
-                     <div className="text-dark"><GiClothes/> Sports</div>
+                 <Link to={`/${Games}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><GiClothes/>Video Games</div>
+                 </Link></div>
+                 <div className="list-group" style={{margin: '5px'}}>
+                 <Link to={`/${Networking}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><BiCar/> Networking Products</div>
+                 </Link></div>
+             <div className="list-group" style={{margin: '5px'}}>
+                 <Link to={`/${Cameras}`} className="list-group-item" style={{borderRadius:'25px'}}>
+                     <div className="text-dark"><GiClothes/>Photo and Video Cameras</div>
                  </Link></div>
          </Paper>
      );
@@ -205,10 +219,10 @@
              <Drawer
                  container={container}
                  variant="temporary"
-                 open={mobileOpen}
+                 open={MobileOpen}
                  onClose={handleDrawerToggle}
                  ModalProps={{
-                     keepMounted: true, // Better open performance on mobile.
+                     keepMounted: true, // Better open performance on Mobile.
                  }}
                  sx={{
                      display: { xs: 'block', sm: 'none' },
